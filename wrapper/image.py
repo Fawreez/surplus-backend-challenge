@@ -57,3 +57,10 @@ def remove_image(image_id):
         return delete_product_image_response
 
     return response
+
+
+def add_product_image(image_id, product_id):
+    insert_query = """INSERT INTO product_image (product_id, image_id) VALUES (%s, %s)"""
+    response = execute_query(insert_query, (product_id, image_id))
+
+    return response
