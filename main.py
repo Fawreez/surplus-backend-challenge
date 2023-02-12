@@ -86,6 +86,13 @@ async def delete_image(image_id: int):
     return JSONResponse(response)
 
 
+@app.post("/add_image_to_product")
+async def add_image_to_product(image_id: int, product_id: int):
+    response = add_product_image(image_id, product_id)
+
+    return JSONResponse(response)
+
+
 
 
 
