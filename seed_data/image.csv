@@ -1,0 +1,4 @@
+id,name,file,enable
+3,string,string,1
+4,"lamp image",lamp.png,1
+5,"headphones image",headphones.png,1
