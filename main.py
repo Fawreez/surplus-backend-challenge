@@ -101,6 +101,13 @@ async def create_category(category_name: str):
     return JSONResponse(response)
 
 
+@app.post("/read_category")
+async def read_category(category_id: int):
+    response = get_category_from_db(category_id=category_id)
+
+    return response
+
+
 
 
 
