@@ -120,6 +120,13 @@ async def update_categry(category_data: UpdateCategory):
     return JSONResponse(response)
 
 
+@app.delete("/delete_category")
+async def delete_category(category_id: int):
+    response = remove_category(category_id)
+
+    return JSONResponse(response)
+
+
 
 
 
