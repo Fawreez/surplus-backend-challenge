@@ -46,6 +46,7 @@ def execute_query(sql, arguments):
 
         response["message"] = "Success"
         response["success"] = True
+        response["last_id"] = cursor.lastrowid
 
     except pymysql.err.MySQLError as error:
         response["message"] = "Error while executing {}".format(error)
