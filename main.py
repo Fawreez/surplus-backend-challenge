@@ -59,6 +59,13 @@ async def create_image(image_data: CreateImage):
     return JSONResponse(response)
 
 
+@app.get("/read_image")
+async def read_image(image_id: int):
+    response = get_image_from_db(image_id)
+
+    return JSONResponse(response)
+
+
 
 
 
