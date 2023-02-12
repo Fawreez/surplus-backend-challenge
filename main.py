@@ -6,8 +6,13 @@ from fastapi.responses import HTMLResponse, JSONResponse
 
 app = FastAPI()
 
-class Product(BaseModel):
-    product_id: int = None
+class UpdateProduct(BaseModel):
+    product_id: int
+    name: str
+    description: str
+    enable: bool
+
+class CreateProduct(BaseModel):
     name: str
     description: str
     enable: bool
@@ -15,16 +20,22 @@ class Product(BaseModel):
 
 
 @app.post("/create_product")
-def create_product(product_data: Product):
+def create_product(product_data: CreateProduct):
     response = add_product(product_data.dict())
     
     return JSONResponse(response)
 
 
-
 @app.get("/read_product")
 def read_product(product_id: str):
     response = get_product(product_id)
+
+    return JSONResponse(response)
+
+
+@app.post("/update_product")
+def update_product(product_data: UpdateProduct):
+    response = modify_product(product_data.dict())
 
     return JSONResponse(response)
 

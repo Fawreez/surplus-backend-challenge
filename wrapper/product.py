@@ -61,6 +61,24 @@ def get_product(product_id):
     return response
 
 
+def modify_product(product_data):
+    product_id = product_data.get("product_id")
+    name = product_data.get("name")
+    description = product_data.get("description")
+    enable = product_data.get("enable")
+
+    update_query = """UPDATE product SET name = %s,
+                                         description = %s,
+                                         enable = %s
+                                         WHERE
+                                         id = %s"""
+    arguments = (name, description, enable, product_id)
+
+    update_response = execute_query(update_query, arguments)
+
+    return update_response
+
+
 def add_product_to_db(product_data):
     name = product_data.get("name")
     description = product_data.get("description")
