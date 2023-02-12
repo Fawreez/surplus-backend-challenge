@@ -18,6 +18,11 @@ class CreateProduct(BaseModel):
     enable: bool
     category: str
 
+class CreateImage(BaseModel):
+    name: str
+    image_file: str
+    enable: bool
+
 
 @app.post("/create_product")
 async def create_product(product_data: CreateProduct):
@@ -48,13 +53,8 @@ async def delete_product(product_id: int):
 
 
 @app.post("/create_image")
-async def create_image(uploaded_image: UploadFile=File(...)):
-    image_data = {
-        "file_name": uploaded_image.filename,
-        "image_file": await uploaded_image.read()
-    }
-
-    response = add_image_to_db(image_data)
+async def create_image(image_data: CreateImage):
+    response = add_image_to_db(image_data.dict())
 
     return JSONResponse(response)
 
