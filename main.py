@@ -22,8 +22,11 @@ def create_product(product_data: Product):
 
 
 
+@app.get("/read_product")
+def read_product(product_id: str):
+    response = get_product(product_id)
 
-
+    return JSONResponse(response)
 
 
 
