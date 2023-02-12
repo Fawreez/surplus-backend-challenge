@@ -36,3 +36,24 @@ def modify_image(image_data):
     response = execute_query(update_query, arguments)
 
     return response
+
+
+def remove_image(image_id):
+    response = {
+        "success": True,
+        "message": "Success"
+    }
+
+    # Remove image from image table
+    delete_image_query = """DELETE FROM image WHERE id = %s"""
+    delete_image_response = execute_query(delete_image_query, image_id)
+    if not delete_image_response.get("success"):
+        return delete_image_response
+
+    # Delete data from product_image table
+    delete_product_image_query = """DELETE FROM product_image WHERE image_id = %s"""
+    delete_product_image_response = execute_query(delete_product_image_query, image_id)
+    if not delete_product_image_response.get("success"):
+        return delete_product_image_response
+
+    return response

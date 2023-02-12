@@ -79,6 +79,13 @@ async def update_image(image_data: UpdateImage):
     return JSONResponse(response)
 
 
+@app.delete("/delete_image")
+async def delete_image(image_id: int):
+    response = remove_image(image_id)
+
+    return JSONResponse(response)
+
+
 
 
 
