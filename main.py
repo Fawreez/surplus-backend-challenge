@@ -1,5 +1,5 @@
 import uvicorn
-from fastapi import FastAPI
+from fastapi import FastAPI, UploadFile, File
 from pydantic import BaseModel
 from wrapper.product import *
 from fastapi.responses import HTMLResponse, JSONResponse
@@ -20,31 +20,45 @@ class CreateProduct(BaseModel):
 
 
 @app.post("/create_product")
-def create_product(product_data: CreateProduct):
+async def create_product(product_data: CreateProduct):
     response = add_product(product_data.dict())
     
     return JSONResponse(response)
 
 
 @app.get("/read_product")
-def read_product(product_id: int):
+async def read_product(product_id: int):
     response = get_product(product_id)
 
     return JSONResponse(response)
 
 
 @app.post("/update_product")
-def update_product(product_data: UpdateProduct):
+async def update_product(product_data: UpdateProduct):
     response = modify_product(product_data.dict())
 
     return JSONResponse(response)
 
 
 @app.delete("/delete_product")
-def delete_product(product_id: int):
+async def delete_product(product_id: int):
     response = remove_product(product_id)
 
     return JSONResponse(response)
+
+
+@app.post("/create_image")
+async def create_image(uploaded_image: UploadFile=File(...)):
+    image_data = {
+        "file_name": uploaded_image.filename,
+        "image_file": await uploaded_image.read()
+    }
+
+    response = add_image_to_db(image_data)
+
+    return JSONResponse(response)
+
+
 
 
 

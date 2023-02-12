@@ -1,4 +1,5 @@
 from wrapper.db import *
+from wrapper.image import *
 import uuid
 
 
@@ -155,12 +156,6 @@ def get_product_images_from_db(product_id):
         images.append(image)
 
     return images
-
-
-def get_image_from_db(image_id):
-    select_query = """SELECT * FROM image WHERE id = %s"""
-    image = fetch_query(select_query, image_id, get="one")
-    return image
 
 
 def get_category_from_db(category_id=None, category_name=None):
