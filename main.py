@@ -127,6 +127,13 @@ async def delete_category(category_id: int):
     return JSONResponse(response)
 
 
+@app.post("/add_category_to_product")
+async def add_category_to_product(category_id: int, product_id: int):
+    response = add_product_category(category_id, product_id)
+
+    return JSONResponse(response)
+
+
 
 
 

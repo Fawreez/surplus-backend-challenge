@@ -59,3 +59,10 @@ def remove_category(category_id):
         return delete_category_product_response
 
     return response
+
+
+def add_product_category(category_id, product_id):
+    insert_query = """INSERT INTO category_product (product_id, category_id) VALUES (%s, %s)"""
+    response = execute_query(insert_query, (product_id, category_id))
+
+    return response
