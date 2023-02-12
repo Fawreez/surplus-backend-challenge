@@ -23,6 +23,12 @@ class CreateImage(BaseModel):
     image_file: str
     enable: bool
 
+class UpdateImage(BaseModel):
+    image_id: int
+    name: str
+    image_file: str
+    enable: bool
+
 
 @app.post("/create_product")
 async def create_product(product_data: CreateProduct):
@@ -62,6 +68,13 @@ async def create_image(image_data: CreateImage):
 @app.get("/read_image")
 async def read_image(image_id: int):
     response = get_image_from_db(image_id)
+
+    return JSONResponse(response)
+
+
+@app.post("/update_image")
+async def update_image(image_data: UpdateImage):
+    response = modify_image(image_data.dict())
 
     return JSONResponse(response)
 

@@ -17,3 +17,22 @@ def add_image_to_db(image_data):
     response = execute_query(insert_query, arguments)
 
     return response
+
+
+def modify_image(image_data):
+    image_id = image_data.get("image_id")
+    name = image_data.get("name")
+    image_file = image_data.get("image_file")
+    enable = image_data.get("enable")
+
+    update_query = """UPDATE image SET name = %s,
+                                       file = %s,
+                                       enable = %s
+                                       WHERE
+                                       id = %s"""
+
+    arguments = (name, image_file, enable, image_id)
+
+    response = execute_query(update_query, arguments)
+
+    return response
