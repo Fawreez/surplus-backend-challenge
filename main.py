@@ -1,7 +1,8 @@
 import uvicorn
-from fastapi import FastAPI, UploadFile, File
+from fastapi import FastAPI
 from pydantic import BaseModel
 from wrapper.product import *
+from wrapper.image import *
 from fastapi.responses import HTMLResponse, JSONResponse
 
 app = FastAPI()
@@ -89,6 +90,13 @@ async def delete_image(image_id: int):
 @app.post("/add_image_to_product")
 async def add_image_to_product(image_id: int, product_id: int):
     response = add_product_image(image_id, product_id)
+
+    return JSONResponse(response)
+
+
+@app.post("/create_category")
+async def create_category(category_name: str):
+    response = add_category_to_db(category_name)
 
     return JSONResponse(response)
 
