@@ -79,6 +79,33 @@ def modify_product(product_data):
     return update_response
 
 
+def remove_product(product_id):
+    response = {
+        "success": True,
+        "message": "Success"
+    }
+
+    # Delete data from product table
+    delete_product_query = """DELETE FROM product WHERE id = %s"""
+    delete_product_response = execute_query(delete_product_query, product_id)
+    if not delete_product_response.get("success"):
+        return delete_product_response
+
+    # Delete data from category_product table
+    delete_category_product_query = """DELETE FROM category_product WHERE product_id = %s"""
+    delete_category_product_response = execute_query(delete_category_product_query, product_id)
+    if not delete_category_product_response.get("success"):
+        return delete_category_product_response
+
+    # Delete data from product_image table
+    delete_product_image_query = """DELETE FROM product_image WHERE product_id = %s"""
+    delete_product_image_response = execute_query(delete_product_image_query, product_id)
+    if not delete_product_image_response.get("success"):
+        return delete_product_image_response
+
+    return response
+
+
 def add_product_to_db(product_data):
     name = product_data.get("name")
     description = product_data.get("description")

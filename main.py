@@ -27,7 +27,7 @@ def create_product(product_data: CreateProduct):
 
 
 @app.get("/read_product")
-def read_product(product_id: str):
+def read_product(product_id: int):
     response = get_product(product_id)
 
     return JSONResponse(response)
@@ -36,6 +36,13 @@ def read_product(product_id: str):
 @app.post("/update_product")
 def update_product(product_data: UpdateProduct):
     response = modify_product(product_data.dict())
+
+    return JSONResponse(response)
+
+
+@app.delete("/delete_product")
+def delete_product(product_id: int):
+    response = remove_product(product_id)
 
     return JSONResponse(response)
 
