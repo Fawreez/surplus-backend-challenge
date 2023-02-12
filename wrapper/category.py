@@ -22,3 +22,19 @@ def add_category_to_db(category_name):
 
     return response
 
+
+def modify_category(category_data):
+    category_id = category_data.get("category_id")
+    name = category_data.get("name")
+    enable = category_data.get("enable")
+
+    update_query = """UPDATE image SET name = %s,
+                                       enable = %s
+                                       WHERE
+                                       id = %s"""
+
+    arguments = (name, enable, category_id)
+
+    response = execute_query(update_query, arguments)
+
+    return response

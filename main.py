@@ -30,6 +30,11 @@ class UpdateImage(BaseModel):
     image_file: str
     enable: bool
 
+class UpdateCategory(BaseModel):
+    category_id: int
+    name: str
+    enable: bool
+
 
 @app.post("/create_product")
 async def create_product(product_data: CreateProduct):
@@ -101,11 +106,18 @@ async def create_category(category_name: str):
     return JSONResponse(response)
 
 
-@app.post("/read_category")
+@app.get("/read_category")
 async def read_category(category_id: int):
     response = get_category_from_db(category_id=category_id)
 
     return response
+
+
+@app.post("/update_category")
+async def update_categry(category_data: UpdateCategory):
+    response = modify_category(category_data.dict())
+
+    return JSONResponse(response)
 
 
 
